@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Planic - Encuentra tu próximo plan</title>
+
+  <meta name="theme-color" content="#6c5ce7">
+  <meta name="description" content="Planic - Encuentra planes según tu presupuesto, ubicación y gustos">
+
+  <title>Planic — Encuentra tu próximo plan</title>
 
   <style>
     * {
@@ -12,92 +16,293 @@
       padding: 0;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5548c7;
+      --secondary: #00b894;
+      --background: #f6f7fb;
+      --text: #202124;
+      --muted: #70757a;
+      --white: #ffffff;
+      --border: #e5e7eb;
     }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
 
     header {
-      background: #ffffff;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-
-    header h1 {
-      font-size: 32px;
-    }
-
-    header p {
-      margin-top: 8px;
-      color: #666;
-    }
-
-    main {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    }
-
-    .field {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      background: #111;
+      background: linear-gradient(135deg, #6c5ce7, #8e7dff);
       color: white;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
+      padding: 22px 20px 55px;
+      text-align: center;
     }
 
-    button:hover {
+    .logo {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .tagline {
+      margin-top: 7px;
+      font-size: 16px;
       opacity: 0.9;
     }
 
+    /* CONTENEDOR */
+
+    main {
+      max-width: 850px;
+      margin: -30px auto 50px;
+      padding: 0 18px;
+    }
+
+    /* BUSCADOR */
+
+    .search-card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+    }
+
+    .search-title {
+      text-align: center;
+      font-size: 23px;
+      margin-bottom: 25px;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      background: white;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108,92,231,0.12);
+    }
+
+    .find-button {
+      width: 100%;
+      border: none;
+      margin-top: 22px;
+      padding: 16px;
+      border-radius: 13px;
+      background: var(--primary);
+      color: white;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .find-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* RESULTADOS */
+
     #resultado {
-      margin-top: 25px;
+      margin-top: 28px;
+    }
+
+    .results-title {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
     .plan {
-      background: #f1f3f7;
-      padding: 20px;
-      border-radius: 15px;
-      margin-top: 15px;
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+      transition: 0.2s;
+    }
+
+    .plan:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+    }
+
+    .plan-top {
+      padding: 22px;
+      background: linear-gradient(135deg, #f0edff, #fafaff);
+    }
+
+    .plan-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
     }
 
     .plan h3 {
-      margin-bottom: 10px;
+      font-size: 18px;
+      margin-bottom: 7px;
     }
 
-    .plan p {
-      margin: 6px 0;
+    .plan-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .plan-body {
+      padding: 18px 22px 22px;
+    }
+
+    .plan-info {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .plan-info:last-child {
+      border-bottom: none;
+    }
+
+    .plan-price {
+      font-weight: 800;
+      color: var(--secondary);
+    }
+
+    .plan-button {
+      width: 100%;
+      padding: 11px;
+      margin-top: 12px;
+      border: 1px solid var(--primary);
+      background: white;
+      color: var(--primary);
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .plan-button:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* MENSAJE */
+
+    .message {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* PREMIUM */
+
+    .premium {
+      margin-top: 28px;
+      background: linear-gradient(135deg, #202124, #36383d);
+      color: white;
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .premium h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .premium p {
+      color: #d8d8d8;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .premium-button {
+      border: none;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: white;
+      color: #202124;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      font-size: 13px;
+    }
+
+    /* MÓVIL */
+
+    @media (max-width: 700px) {
+
+      header {
+        padding-bottom: 50px;
+      }
+
+      .logo {
+        font-size: 34px;
+      }
+
+      .fields {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .plans {
+        grid-template-columns: 1fr;
+      }
+
+      .search-card {
+        padding: 20px;
+      }
     }
   </style>
 </head>
@@ -105,87 +310,573 @@
 <body>
 
   <header>
-    <h1>Planic</h1>
-    <p>Encuentra tu próximo plan</p>
+    <div class="logo">Planic</div>
+    <div class="tagline">✨ Encuentra tu próximo plan</div>
   </header>
 
   <main>
-    <div class="card">
 
-      <div class="field">
-        <label>📍 ¿Dónde estás?</label>
-        <input type="text" id="ubicacion" placeholder="Ej: Porto Cristo">
+    <section class="search-card">
+
+      <h2 class="search-title">
+        ¿Qué quieres hacer hoy?
+      </h2>
+
+      <div class="fields">
+
+        <div class="field full">
+          <label for="ubicacion">📍 ¿Dónde estás?</label>
+          <input
+            type="text"
+            id="ubicacion"
+            placeholder="Ej: Porto Cristo"
+          >
+        </div>
+
+        <div class="field">
+          <label for="presupuesto">💰 Presupuesto por persona</label>
+          <input
+            type="number"
+            id="presupuesto"
+            placeholder="Ej: 30"
+            min="0"
+          >
+        </div>
+
+        <div class="field">
+          <label for="personas">👥 Personas</label>
+          <input
+            type="number"
+            id="personas"
+            value="2"
+            min="1"
+            max="20"
+          >
+        </div>
+
+        <div class="field full">
+          <label for="tipo">🎯 ¿Qué te apetece?</label>
+
+          <select id="tipo">
+            <option value="comer">🍔 Comer</option>
+            <option value="cine">🎬 Cine</option>
+            <option value="playa">🏖️ Playa</option>
+            <option value="aire">🌳 Aire libre</option>
+            <option value="juegos">🎮 Juegos</option>
+            <option value="fiesta">🎉 Fiesta</option>
+            <option value="cualquiera">✨ Me da igual</option>
+          </select>
+        </div>
+
       </div>
 
-      <div class="field">
-        <label>💰 ¿Cuánto quieres gastar?</label>
-        <input type="number" id="presupuesto" placeholder="Ej: 30">
-      </div>
+      <button class="find-button" onclick="buscarPlan()">
+        🔎 ENCONTRAR PLAN
+      </button>
 
-      <div class="field">
-        <label>👥 ¿Cuántas personas?</label>
-        <input type="number" id="personas" value="2" min="1">
-      </div>
+    </section>
 
-      <div class="field">
-        <label>🎯 ¿Qué te apetece?</label>
-        <select id="tipo">
-          <option value="comer">🍔 Comer</option>
-          <option value="cine">🎬 Cine</option>
-          <option value="aire">🌳 Aire libre</option>
-          <option value="playa">🏖️ Playa</option>
-          <option value="juegos">🎮 Juegos</option>
-          <option value="fiesta">🎉 Fiesta</option>
-        </select>
-      </div>
+    <section id="resultado"></section>
 
-      <button onclick="buscarPlan()">🔎 ENCONTRAR PLAN</button>
+    <section class="premium">
+      <h2>⭐ Próximamente: Planic Premium</h2>
 
-      <div id="resultado"></div>
+      <p>
+        Más planes, recomendaciones avanzadas y una experiencia sin anuncios.
+      </p>
 
-    </div>
+      <button class="premium-button" onclick="premium()">
+        Saber más
+      </button>
+    </section>
+
   </main>
 
+  <footer>
+    © 2026 Planic · Encuentra tu próximo plan
+  </footer>
+
+
   <script>
+
+    function limpiarTexto(texto) {
+      const div = document.createElement("div");
+      div.textContent = texto;
+      return div.innerHTML;
+    }
+
+
     function buscarPlan() {
 
-      const ubicacion = document.getElementById("ubicacion").value;
-      const presupuesto = document.getElementById("presupuesto").value;
-      const personas = document.getElementById("personas").value;
-      const tipo = document.getElementById("tipo").value;
+      const ubicacion =
+        document.getElementById("ubicacion").value.trim();
 
-      if (!ubicacion || !presupuesto) {
-        document.getElementById("resultado").innerHTML =
-          "<p>⚠️ Introduce tu ubicación y presupuesto.</p>";
+      const presupuesto =
+        Number(document.getElementById("presupuesto").value);
+
+      const personas =
+        Number(document.getElementById("personas").value);
+
+      const tipo =
+        document.getElementById("tipo").value;
+
+
+      const resultado =
+        document.getElementById("resultado");
+
+
+      if (!ubicacion) {
+
+        resultado.innerHTML = `
+          <div class="message">
+            📍 Introduce primero dónde estás.
+          </div>
+        `;
+
         return;
       }
 
-      let plan = "";
 
-      if (tipo === "comer") {
-        plan = "🍔 Ir a comer a un restaurante";
-      } else if (tipo === "cine") {
-        plan = "🎬 Ir al cine";
-      } else if (tipo === "aire") {
-        plan = "🌳 Hacer una actividad al aire libre";
-      } else if (tipo === "playa") {
-        plan = "🏖️ Pasar el día en la playa";
-      } else if (tipo === "juegos") {
-        plan = "🎮 Ir a jugar";
-      } else if (tipo === "fiesta") {
-        plan = "🎉 Buscar un sitio para salir";
+      if (!presupuesto || presupuesto < 0) {
+
+        resultado.innerHTML = `
+          <div class="message">
+            💰 Introduce cuánto quieres gastar.
+          </div>
+        `;
+
+        return;
       }
 
-      document.getElementById("resultado").innerHTML = `
-        <div class="plan">
-          <h3>✨ Tu plan</h3>
-          <p><strong>${plan}</strong></p>
-          <p>📍 ${ubicacion}</p>
-          <p>💰 Presupuesto: ${presupuesto} €</p>
-          <p>👥 Personas: ${personas}</p>
-        </div>
+
+      if (!personas || personas < 1) {
+
+        resultado.innerHTML = `
+          <div class="message">
+            👥 Introduce el número de personas.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      const lugar = limpiarTexto(ubicacion);
+
+      const presupuestoTotal = presupuesto * personas;
+
+
+      let planes = [];
+
+
+      /* COMER */
+
+      if (tipo === "comer") {
+
+        planes = [
+
+          {
+            icon: "🍔",
+            title: "Comida económica",
+            description:
+              "Busca un restaurante informal y disfruta de una comida sin superar tu presupuesto.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "1–2 horas"
+          },
+
+          {
+            icon: "🍕",
+            title: "Pizza con amigos",
+            description:
+              "Un plan sencillo para comer, compartir y pasar un buen rato.",
+            price:
+              Math.min(presupuestoTotal, 15 * personas) + " € aprox.",
+            duration:
+              "1–2 horas"
+          },
+
+          {
+            icon: "🍦",
+            title: "Comida + paseo",
+            description:
+              "Come algo y termina el plan dando un paseo por la zona.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "2–3 horas"
+          }
+
+        ];
+
+      }
+
+
+      /* CINE */
+
+      else if (tipo === "cine") {
+
+        planes = [
+
+          {
+            icon: "🎬",
+            title: "Cine",
+            description:
+              "Una película y algo para beber o picar.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "2–3 horas"
+          },
+
+          {
+            icon: "🍿",
+            title: "Cine + comida",
+            description:
+              "Combina una película con algo de comida después.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "3–4 horas"
+          },
+
+          {
+            icon: "🎮",
+            title: "Cine + videojuegos",
+            description:
+              "Una tarde de entretenimiento combinando cine y juegos.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "3–5 horas"
+          }
+
+        ];
+
+      }
+
+
+      /* PLAYA */
+
+      else if (tipo === "playa") {
+
+        planes = [
+
+          {
+            icon: "🏖️",
+            title: "Día de playa",
+            description:
+              "Relájate, báñate y disfruta de un día tranquilo.",
+            price:
+              "0–" + presupuestoTotal + " €",
+            duration:
+              "Todo el día"
+          },
+
+          {
+            icon: "🌅",
+            title: "Playa al atardecer",
+            description:
+              "Un plan tranquilo para disfrutar del atardecer.",
+            price:
+              "0–10 €",
+            duration:
+              "2–3 horas"
+          },
+
+          {
+            icon: "🧺",
+            title: "Picnic en la playa",
+            description:
+              "Prepara comida y disfruta de un picnic junto al mar.",
+            price:
+              "5–" + presupuestoTotal + " €",
+            duration:
+              "2–4 horas"
+          }
+
+        ];
+
+      }
+
+
+      /* AIRE LIBRE */
+
+      else if (tipo === "aire") {
+
+        planes = [
+
+          {
+            icon: "🌳",
+            title: "Paseo por la naturaleza",
+            description:
+              "Descubre lugares al aire libre y disfruta de un paseo.",
+            price:
+              "Gratis",
+            duration:
+              "1–3 horas"
+          },
+
+          {
+            icon: "🚶",
+            title: "Ruta y merienda",
+            description:
+              "Haz una pequeña ruta y termina tomando algo.",
+            price:
+              "5–" + presupuestoTotal + " €",
+            duration:
+              "2–4 horas"
+          },
+
+          {
+            icon: "🌅",
+            title: "Explorar la zona",
+            description:
+              "Busca un lugar bonito cerca de ti y explora los alrededores.",
+            price:
+              "0–" + presupuestoTotal + " €",
+            duration:
+              "2–4 horas"
+          }
+
+        ];
+
+      }
+
+
+      /* JUEGOS */
+
+      else if (tipo === "juegos") {
+
+        planes = [
+
+          {
+            icon: "🎮",
+            title: "Tarde de videojuegos",
+            description:
+              "Busca un local de videojuegos o prepara una sesión en casa.",
+            price:
+              "0–" + presupuestoTotal + " €",
+            duration:
+              "2–4 horas"
+          },
+
+          {
+            icon: "🎳",
+            title: "Bolera",
+            description:
+              "Un plan divertido para competir con amigos.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "1–2 horas"
+          },
+
+          {
+            icon: "🕹️",
+            title: "Arcade",
+            description:
+              "Juega a máquinas arcade y descubre nuevos retos.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "1–3 horas"
+          }
+
+        ];
+
+      }
+
+
+      /* FIESTA */
+
+      else if (tipo === "fiesta") {
+
+        planes = [
+
+          {
+            icon: "🎉",
+            title: "Noche con amigos",
+            description:
+              "Busca un lugar con buen ambiente para pasar la noche.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "3–6 horas"
+          },
+
+          {
+            icon: "🎵",
+            title: "Música y ambiente",
+            description:
+              "Encuentra un sitio con música y disfruta de la noche.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "3–5 horas"
+          },
+
+          {
+            icon: "🍹",
+            title: "Salir a tomar algo",
+            description:
+              "Un plan sencillo para quedar con amigos.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "2–4 horas"
+          }
+
+        ];
+
+      }
+
+
+      /* CUALQUIERA */
+
+      else {
+
+        planes = [
+
+          {
+            icon: "🍔",
+            title: "Comer algo",
+            description:
+              "Busca un sitio para comer y disfrutar de una buena comida.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "1–2 horas"
+          },
+
+          {
+            icon: "🏖️",
+            title: "Paseo + playa",
+            description:
+              "Un plan tranquilo para disfrutar del exterior.",
+            price:
+              "0–10 €",
+            duration:
+              "2–4 horas"
+          },
+
+          {
+            icon: "🎬",
+            title: "Cine",
+            description:
+              "Relájate viendo una película y disfruta del momento.",
+            price:
+              presupuestoTotal + " € máximo",
+            duration:
+              "2–3 horas"
+          }
+
+        ];
+
+      }
+
+
+      let html = `
+        <h2 class="results-title">
+          ✨ Planes para ti
+        </h2>
+
+        <p style="color:#70757a; margin-bottom:18px;">
+          📍 ${lugar} · 👥 ${personas} personas · 💰 ${presupuestoTotal} € de presupuesto total
+        </p>
+
+        <div class="plans">
       `;
+
+
+      planes.forEach(function(plan) {
+
+        html += `
+
+          <article class="plan">
+
+            <div class="plan-top">
+
+              <div class="plan-icon">
+                ${plan.icon}
+              </div>
+
+              <h3>
+                ${plan.title}
+              </h3>
+
+              <p class="plan-description">
+                ${plan.description}
+              </p>
+
+            </div>
+
+            <div class="plan-body">
+
+              <div class="plan-info">
+                <span>💰 Precio</span>
+                <span class="plan-price">
+                  ${plan.price}
+                </span>
+              </div>
+
+              <div class="plan-info">
+                <span>⏱️ Duración</span>
+                <span>
+                  ${plan.duration}
+                </span>
+              </div>
+
+              <button
+                class="plan-button"
+                onclick="verPlan('${plan.title}')"
+              >
+                Ver plan
+              </button>
+
+            </div>
+
+          </article>
+
+        `;
+
+      });
+
+
+      html += `</div>`;
+
+
+      resultado.innerHTML = html;
+
+
+      resultado.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
     }
+
+
+    function verPlan(nombre) {
+
+      alert(
+        "Has elegido: " + nombre +
+        "\n\nPróximamente Planic podrá mostrar lugares reales, mapas y opciones de reserva."
+      );
+
+    }
+
+
+    function premium() {
+
+      alert(
+        "⭐ Planic Premium\n\n" +
+        "Esta función estará disponible próximamente."
+      );
+
+    }
+
   </script>
 
 </body>
